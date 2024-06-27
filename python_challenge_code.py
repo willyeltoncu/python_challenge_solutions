@@ -20,15 +20,22 @@ def basic_decrypt(raw_bare_text_scrambled, shift): ##Used for the basic cypher o
     # for i in range(10):
     #     print(i, chr(ord('k') +i))
 
-def step_tree(junk): ##Filter function for step three of python challenge.. 
-    print(f"The unique characters of this huge set of junk are: %s "% (set(junk)))
+def step_tree(junk): ##Filter function for step three of python challenge..
+    print(f"The unique characters of this huge set (%d items)  of junk are: %s  \nFiltering...."% (len(junk), set(junk)))
+    result = ""
     for char in junk: 
         char_order = ord(char)
-        if char_order >= ord('a') and char_order > 
+        if char_order >= ord('a') and char_order <= ord('z'):
+            result += char
+    return result
+
+
+def fourth_step(junk): ## this function searches a 3X3 area of the 2D char array, checking for a  
+    pass
 
 def main(): ## Main function used to call step specfic functions and present the info nicely... 
     ##Step 2 presentation
-    file = open("step2_crypt.txt")
+    file = open("step2_crypt.txt") ##Info found in the page source of step 2 pythongchallenge.com
     str1 = file.read()
     print("The encrpyted message: \n", str1)
     round_2_solution =  basic_decrypt(str1, 2)
@@ -36,9 +43,13 @@ def main(): ## Main function used to call step specfic functions and present the
     print(f"\n\n\n The new URL ending for python challenge is : %s  \n\n" % (basic_decrypt("map",2)))
     file.close()
     ##Step 3 presentation
-    file = open("step3_mess.txt")
+    file = open("step3_mess.txt") ##Info found in the page source of step 3 pythongchallenge.com
     mess_to_sort_through = file.read()
-    step_tree(mess_to_sort_through)
+    print(f"The new URL ending for python challenge is : %s \n\n" % (step_tree(mess_to_sort_through)))
+    file.close()
+    print(mess_to_sort_through)
+    ##Step 4 presentation. 
+    W
 
 
 
