@@ -1,4 +1,8 @@
+# import urllib2
 print(2**38) ##Basic math for step 1
+
+def url_print(answ):
+    print(f"Latest url for python challenge: http://www.pythonchallenge.com/pc/def/%s.html \n" % (answ)) ## clickable/pastable link function
 
 def basic_decrypt(raw_bare_text_scrambled, shift): ##Used for the basic cypher of step 2 of pythonchallenge.com
     return_str = ""
@@ -29,9 +33,27 @@ def step_tree(junk): ##Filter function for step three of python challenge..
             result += char
     return result
 
-
+## Algo is : --> grab page source --> push data into 2D array, filter for lowercase surronded by EXACTLY 3 UPPERcase daddies 
 def fourth_step(junk): ## this function searches a 3X3 area of the 2D char array, checking for a  
     pass
+    ## Try grabbing the page_source info via python instead of using text_file.. 
+
+
+
+    response = urllib2.urlopen("http://www.pythonchallenge.com/pc/def/equality.html") ##Look into URLLIB
+    page_source = response.read()   
+    print(page_source)
+
+
+
+
+
+
+
+
+
+
+
 
 def main(): ## Main function used to call step specfic functions and present the info nicely... 
     ##Step 2 presentation
@@ -40,22 +62,17 @@ def main(): ## Main function used to call step specfic functions and present the
     print("The encrpyted message: \n", str1)
     round_2_solution =  basic_decrypt(str1, 2)
     print(f"The decrypted message: \n \n %s" % (round_2_solution))
-    print(f"\n\n The latest URL ending for python challenge is : %s  \n\n" % (basic_decrypt("map",2)))
+    # print(f"\n\n The latest URL ending for python challenge is : %s  \n\n" % (basic_decrypt("map",2)))
+    url_print(basic_decrypt("map",2))
     file.close()
     ##Step 3 presentation
     file = open("step3_mess.txt") ##Info found in the page source of step 3 pythongchallenge.com
     mess_to_sort_through = file.read()
-    print(f"The latest URL ending for python challenge is : %s \n\n" % (step_tree(mess_to_sort_through)))
+    url_print(step_tree(mess_to_sort_through))
     file.close()
     # print(mess_to_sort_through)
     ##Step 4 presentation. 
 
-    ## Try grabbing the page_source info via python instead of using text_file.. 
-    import urllib2
-
-    response = urllib2.urlopen("http://www.pythonchallenge.com/pc/def/equality.html") ##Look into URLLIB
-    page_source = response.read()   
-    print(page_source)
 
 
 
