@@ -40,16 +40,22 @@ def main(): ## Main function used to call step specfic functions and present the
     print("The encrpyted message: \n", str1)
     round_2_solution =  basic_decrypt(str1, 2)
     print(f"The decrypted message: \n \n %s" % (round_2_solution))
-    print(f"\n\n\n The new URL ending for python challenge is : %s  \n\n" % (basic_decrypt("map",2)))
+    print(f"\n\n The latest URL ending for python challenge is : %s  \n\n" % (basic_decrypt("map",2)))
     file.close()
     ##Step 3 presentation
     file = open("step3_mess.txt") ##Info found in the page source of step 3 pythongchallenge.com
     mess_to_sort_through = file.read()
-    print(f"The new URL ending for python challenge is : %s \n\n" % (step_tree(mess_to_sort_through)))
+    print(f"The latest URL ending for python challenge is : %s \n\n" % (step_tree(mess_to_sort_through)))
     file.close()
-    print(mess_to_sort_through)
+    # print(mess_to_sort_through)
     ##Step 4 presentation. 
-    W
+
+    ## Try grabbing the page_source info via python instead of using text_file.. 
+    import urllib2
+
+    response = urllib2.urlopen("http://www.pythonchallenge.com/pc/def/equality.html") ##Look into URLLIB
+    page_source = response.read()   
+    print(page_source)
 
 
 
