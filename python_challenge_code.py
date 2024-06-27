@@ -1,4 +1,4 @@
-# import urllib2
+import requests
 print(2**38) ##Basic math for step 1
 
 def url_print(answ):
@@ -34,16 +34,22 @@ def step_tree(junk): ##Filter function for step three of python challenge..
     return result
 
 ## Algo is : --> grab page source --> push data into 2D array, filter for lowercase surronded by EXACTLY 3 UPPERcase daddies 
-def fourth_step(junk): ## this function searches a 3X3 area of the 2D char array, checking for a  
-    pass
-    ## Try grabbing the page_source info via python instead of using text_file.. 
+def fourth_step(url): ## this function searches a 3X3 area of the 2D char array, checking for a  
+    # Send an HTTP GET request to the URL
+    response = requests.get(url)
 
-
-
-    response = urllib2.urlopen("http://www.pythonchallenge.com/pc/def/equality.html") ##Look into URLLIB
-    page_source = response.read()   
-    print(page_source)
-
+    # Check if the request was successful (status code 200)
+    if response.status_code == 200:
+        # Print the HTML source code
+        # print(response.text, len(response.text), type(response.text), (response.text).shape)
+        req = response.text
+        start_val = req.find("<!--\n") + len("<!--\n")
+        end_val = req.find("-->") 
+        data = req[start_val:end_val].split('\n')
+        data2D = [[*row] for row in data]
+        print(data2D[0][1])
+    else:
+        print('Failed to retrieve the webpage. Status code:', response.status_code)
 
 
 
@@ -70,10 +76,12 @@ def main(): ## Main function used to call step specfic functions and present the
     mess_to_sort_through = file.read()
     url_print(step_tree(mess_to_sort_through))
     file.close()
+
     # print(mess_to_sort_through)
     ##Step 4 presentation. 
-
-
+    url = 'http://www.pythonchallenge.com/pc/def/equality.html'
+    fourth_step(url)
+    
 
 
 
