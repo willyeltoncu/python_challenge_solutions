@@ -46,10 +46,19 @@ def fourth_step(url): ## this function searches a 3X3 area of the 2D char array,
         start_val = req.find("<!--\n") + len("<!--\n")
         end_val = req.find("-->") 
         data = req[start_val:end_val].split('\n')
-        data2D = [[*row] for row in data]
-        print(data2D[0][1])
+        data2D = [[*row] for row in data] ## Unpack each element(string) into its components(chars) row by row for 2D array type behavior
+        print(data2D[0])
+        for idx in range(len(data2D)-2):
+            for iidx in range(len(data2D[idx])-2):
+                up_left , up_mid , up_right,  mid_lef, mid_mid , mid_right, bot_left, bot_mid, bot_right = data2D[idx][iidx], data2D[idx][iidx+1], data2D[idx][iidx+2],  data2D[idx+1][iidx] , data[idx+1][iidx+1], data2D[idx+1][iidx+2] , data2D[idx+2][iidx] , data[idx+2][iidx+1], data2D[idx+2][iidx+2] 
+                print(up_left , up_mid , up_right,  mid_lef, mid_mid , mid_right, bot_left, bot_mid, bot_right)
+                print("\n")
+            
+        
     else:
         print('Failed to retrieve the webpage. Status code:', response.status_code)
+
+    return "BALLS"
 
 
 
@@ -80,7 +89,7 @@ def main(): ## Main function used to call step specfic functions and present the
     # print(mess_to_sort_through)
     ##Step 4 presentation. 
     url = 'http://www.pythonchallenge.com/pc/def/equality.html'
-    fourth_step(url)
+    url_print(fourth_step(url))
     
 
 
