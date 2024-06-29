@@ -47,13 +47,16 @@ def fourth_step(url): ## this function searches a 3X3 area of the 2D char array,
         end_val = req.find("-->") 
         data = req[start_val:end_val].split('\n')
         data2D = [[*row] for row in data] ## Unpack each element(string) into its components(chars) row by row for 2D array type behavior
-        print(data2D[0])
-        for idx in range(len(data2D)-2):
-            for iidx in range(len(data2D[idx])-2):
-                up_left , up_mid , up_right,  mid_lef, mid_mid , mid_right, bot_left, bot_mid, bot_right = data2D[idx][iidx], data2D[idx][iidx+1], data2D[idx][iidx+2],  data2D[idx+1][iidx] , data[idx+1][iidx+1], data2D[idx+1][iidx+2] , data2D[idx+2][iidx] , data[idx+2][iidx+1], data2D[idx+2][iidx+2] 
-                print(up_left , up_mid , up_right,  mid_lef, mid_mid , mid_right, bot_left, bot_mid, bot_right)
-                print("\n")
-            
+        for idx in range(len(data2D)):
+            for iidx in range(3 , len(data2D[idx])):
+                # print(iidx)
+                out_left , mid_left , adj_left = data2D[idx][iidx-3] , data2D[idx][iidx-2], data2D[idx][iidx-1]
+                print(out_left , mid_left , adj_left)          
+                
+                if idx == 3:
+                    return# return      
+                # up_left , up_mid , up_right,  mid_lef, mid_mid , mid_right, bot_left, bot_mid, bot_right = data2D[idx][iidx], data2D[idx][iidx+1], data2D[idx][iidx+2],  data2D[idx+1][iidx] , data[idx+1][iidx+1], data2D[idx+1][iidx+2] , data2D[idx+2][iidx] , data[idx+2][iidx+1], data2D[idx+2][iidx+2] 
+                
         
     else:
         print('Failed to retrieve the webpage. Status code:', response.status_code)
