@@ -3,6 +3,7 @@ print(2**38) ##Basic math for step 1
 
 def url_print(answ):
     print(f"Latest url for python challenge: http://www.pythonchallenge.com/pc/def/%s.html \n" % (answ)) ## clickable/pastable link function
+    return "http://www.pythonchallenge.com/pc/def/"+ answ + ".html"
 
 def basic_decrypt(raw_bare_text_scrambled, shift): ##Used for the basic cypher of step 2 of pythonchallenge.com
     return_str = ""
@@ -34,7 +35,7 @@ def step_tree(junk): ##Filter function for step three of python challenge..
     return result
 
 ## Algo is : --> grab page source --> push data into 2D array, filter for lowercase surronded by EXACTLY 3 UPPERcase daddies 
-def fourth_step(url): ## this function searches a 3X3 area of the 2D char array, checking for a  
+def fourth_step(url): ## this function searches a 9x1 area of the 2D char array, checking for a lower case surronded by exactly 3 uppers..  
     # Send an HTTP GET request to the URL
     response = requests.get(url)
 
@@ -47,21 +48,21 @@ def fourth_step(url): ## this function searches a 3X3 area of the 2D char array,
         end_val = req.find("-->") 
         data = req[start_val:end_val].split('\n')
         data2D = [[*row] for row in data] ## Unpack each element(string) into its components(chars) row by row for 2D array type behavior
+        rt_string = ""
         for idx in range(len(data2D)):
-            for iidx in range(3 , len(data2D[idx])):
+            for iidx in range(4 , (len(data2D[idx])-4)):
                 # print(iidx)
-                out_left , mid_left , adj_left = data2D[idx][iidx-3] , data2D[idx][iidx-2], data2D[idx][iidx-1]
-                print(out_left , mid_left , adj_left)          
-                
-                if idx == 3:
-                    return# return      
-                # up_left , up_mid , up_right,  mid_lef, mid_mid , mid_right, bot_left, bot_mid, bot_right = data2D[idx][iidx], data2D[idx][iidx+1], data2D[idx][iidx+2],  data2D[idx+1][iidx] , data[idx+1][iidx+1], data2D[idx+1][iidx+2] , data2D[idx+2][iidx] , data[idx+2][iidx+1], data2D[idx+2][iidx+2] 
-                
+                check_left , out_left , mid_left , adj_left = data2D[idx][iidx-4], data2D[idx][iidx-3] , data2D[idx][iidx-2], data2D[idx][iidx-1]
+                adj_right , mid_right , out_right , check_right= data2D[idx][iidx+1], data2D[idx][iidx+2] , data2D[idx][iidx+3], data2D[idx][iidx+4]
+                mid_mid = data2D[idx][iidx]
+                # print(out_left , mid_left , adj_left)          
+                if mid_mid.islower() and out_left.isupper() and mid_left.isupper() and adj_left.isupper() and adj_right.isupper() and mid_right.isupper() and out_right.isupper() and check_right.islower() and check_left.islower():
+                    # print(out_left , mid_left , adj_left, mid_mid,adj_right , mid_right , out_right )
+                    rt_string += mid_mid
+        return rt_string
         
     else:
         print('Failed to retrieve the webpage. Status code:', response.status_code)
-
-    return "BALLS"
 
 
 
@@ -92,8 +93,16 @@ def main(): ## Main function used to call step specfic functions and present the
     # print(mess_to_sort_through)
     ##Step 4 presentation. 
     url = 'http://www.pythonchallenge.com/pc/def/equality.html'
-    url_print(fourth_step(url))
-    
+    rt_url =  url_print(fourth_step(url))
+    print("Converting URL.... ")
+    response = requests.get(rt_url)
+
+    # Check if the request was successful (status code 200)
+    if response.status_code == 200:
+        req = response.text
+        new_url = "http://www.pythonchallenge.com/pc/def/" + response.text
+    print(f"Latest url for python challenge: %s" % (new_url))
+    ##Step 5 presentation 
 
 
 
